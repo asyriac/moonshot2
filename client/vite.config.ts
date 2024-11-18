@@ -10,4 +10,8 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    outDir: path.resolve(__dirname, '../api/build'), // Set the build output to the server folder
+    emptyOutDir: true, // Ensure the 'server' folder is emptied before each build
+  },
 })

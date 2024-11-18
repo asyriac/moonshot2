@@ -2,6 +2,8 @@ const express = require('express');
 require("dotenv").config();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const path = require("path");
+
 
 
 
@@ -25,9 +27,15 @@ app.use(
 const initDB = require("./db");
 initDB();
 
+app.use(express.static(path.join(__dirname, "build")));
+
 // Routes setup
 const routes = require("./routes/v1.routes");
 app.use("/api/v1", routes);
+
+app.use((_, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 // Handle unhandled routes
 app.all("*", (req, res) => res.status(404).json({ message: `${req.originalUrl} not found` }));
