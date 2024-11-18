@@ -34,6 +34,7 @@ const routes = require("./routes/v1.routes");
 app.use("/api/v1", routes);
 
 app.use((_, res) => {
+  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
