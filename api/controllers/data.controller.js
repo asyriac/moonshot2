@@ -78,10 +78,10 @@ const dataProcessing = async (req, res) => {
 
     console.log("Api hit")
     // Set cookies for the frontend
-    res.cookie("startdate", startdate, {  sameSite: "none", secure: true, domain: ".vercel.app"  });
-    res.cookie("enddate", enddate, {  sameSite: "none", secure: true, domain: ".vercel.app"  });
-    res.cookie("age", age || "all", {  sameSite: "none", secure: true, domain: ".vercel.app"  });
-    res.cookie("gender", gender || "all", {  sameSite: "none", secure: true, domain: ".vercel.app"  });
+    res.cookie("startdate", startdate, {  sameSite: "none", secure: true  });
+    res.cookie("enddate", enddate, {  sameSite: "none", secure: true  });
+    res.cookie("age", age || "all", {  sameSite: "none", secure: true  });
+    res.cookie("gender", gender || "all", {  sameSite: "none", secure: true  });
   
   try {
     // Fetch and process data
