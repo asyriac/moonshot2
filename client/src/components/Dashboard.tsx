@@ -45,7 +45,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!token) {
-        navigate('/login', { state: { from: location.pathname + location.search } });
+      navigate("/login", { state: { from: location.pathname + location.search } });
       return;
     }
   
@@ -63,17 +63,11 @@ export default function Dashboard() {
     setDateRange(newDateRange);
     setAge(sharedAge || "all");
     setGender(sharedGender || "all");
-  
-    // Ensure this runs only once, after all filters are set
     setIsFiltersInitialized(true);
   }, [token, navigate, location.search]);
   
   useEffect(() => {
     if (isFiltersInitialized && token && dateRange?.from && dateRange?.to) {
-        Cookies.set("age", age,{ sameSite: "none" , secure: true})
-        Cookies.set("gender", gender,{ sameSite: "none", secure: true ,})
-        Cookies.set("startdate", format(dateRange.from, "dd/MM/yyyy"),{ sameSite: "none", secure: true })
-        Cookies.set("enddate", format(dateRange.to, "dd/MM/yyyy"),{ sameSite: "none", secure: true })
       fetchData();
     }
   }, [isFiltersInitialized, token, dateRange, age, gender]);
@@ -85,21 +79,23 @@ export default function Dashboard() {
   
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/data`,
+        `${import.meta.env.VITE_API_URL}/data?startdate=${format(dateRange.from, "dd/MM/yyyy")}&enddate=${format(
+          dateRange.to,
+          "dd/MM/yyyy"
+        )}&age=${age}&gender=${gender}`,
         {
           headers: { Authorization: `Bearer ${token}` },
-           credentials: "include"
+          credentials: "include", // This allows the backend to manage cookies
         }
       );
   
       if (response.ok) {
         const result = await response.json();
-        // setData(result.data);
         setBarChartData(result.data.barChartData);
-      setLineChartData(result.data.lineChartData);
+        setLineChartData(result.data.lineChartData);
       } else {
         console.error("Failed to fetch data");
-        if (response.status === 401 || response.status === 403 ) {
+        if (response.status === 401 || response.status === 403) {
           logout();
           navigate("/login");
         }
@@ -184,10 +180,6 @@ const prepareLineChartData = (inputData: LineChartData, feature: string) => {
       setAge("all");
       setGender("all");
       setSelectedFeature(null)
-    Cookies.set("age", "all", { sameSite: "none", secure: true })
-    Cookies.set("gender", "all", { sameSite: "none", secure: true })
-    Cookies.set("startdate", newStartDate, { sameSite: "none", secure: true })
-    Cookies.set("enddate", newEndDate, { sameSite: "none", secure: true })
   }
   
   return (

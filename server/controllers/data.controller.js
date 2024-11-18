@@ -74,8 +74,15 @@ function prepareLineChartData(inputData) {
 }
 
 const dataProcessing = async (req, res) => {
-  const { startdate, enddate, age, gender } = req.cookies;
+    const { startdate, enddate, age, gender } = req.query;
 
+    console.log("Api hit")
+    // Set cookies for the frontend
+    res.cookie("startdate", startdate, {  sameSite: "none", secure: true });
+    res.cookie("enddate", enddate, {  sameSite: "none", secure: true });
+    res.cookie("age", age || "all", {  sameSite: "none", secure: true });
+    res.cookie("gender", gender || "all", {  sameSite: "none", secure: true });
+  
   try {
     // Fetch and process data
     const data = await fetchDataFromGoogleSheet();
