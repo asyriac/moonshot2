@@ -7,6 +7,22 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 
+app.use((req, res, next) => {
+    const originalCookie = res.cookie.bind(res);
+  
+    res.cookie = (name, value, options = {}) => {
+      // Default SameSite to 'Lax' if not explicitly set
+      if (!options.sameSite) {
+        options.sameSite = 'Lax';
+      }
+  
+      originalCookie(name, value, options);
+    };
+  
+    next();
+  });
+  
+
 app.use(express.json())
 app.use(cookieParser());
 
