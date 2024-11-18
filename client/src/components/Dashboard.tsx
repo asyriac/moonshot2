@@ -12,8 +12,6 @@ import { Loader2 } from 'lucide-react'
 import Navbar from "./Navbar"
 import Cookies from "js-cookie"
 
-const API_URL = "http://localhost:3001/api/v1" // Replace with your actual API URL
-
 
 
 type BarChartData = {
@@ -87,7 +85,7 @@ export default function Dashboard() {
   
     try {
       const response = await fetch(
-        `${API_URL}/data`,
+        `${import.meta.env.VITE_API_URL}/data`,
         {
           headers: { Authorization: `Bearer ${token}` },
            credentials: "include"

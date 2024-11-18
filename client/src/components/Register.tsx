@@ -4,7 +4,6 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
 
-const API_URL = 'http://localhost:3001/api/v1'; // Replace with your actual API URL
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -17,7 +16,7 @@ export default function Register() {
     setError('');
 
     try {
-      const response = await fetch(`${API_URL}/register`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
