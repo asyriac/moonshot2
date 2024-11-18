@@ -118,6 +118,9 @@ const dataProcessing = async (req, res) => {
     // Process line chart data for all features
     const lineChartData = prepareLineChartData(filteredData);
 
+    
+    res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+
     // Send processed data
     res.json({
       success: true,
