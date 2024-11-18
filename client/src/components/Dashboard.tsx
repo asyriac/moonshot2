@@ -70,10 +70,10 @@ export default function Dashboard() {
   
   useEffect(() => {
     if (isFiltersInitialized && token && dateRange?.from && dateRange?.to) {
-        Cookies.set("age", age,{ sameSite: "Lax" })
-        Cookies.set("gender", gender,{ sameSite: "Lax" })
-        Cookies.set("startdate", format(dateRange.from, "dd/MM/yyyy"),{ sameSite: "Lax" })
-        Cookies.set("enddate", format(dateRange.to, "dd/MM/yyyy"),{ sameSite: "Lax" })
+        Cookies.set("age", age,{ sameSite: "Lax" , secure: true})
+        Cookies.set("gender", gender,{ sameSite: "Lax", secure: true ,})
+        Cookies.set("startdate", format(dateRange.from, "dd/MM/yyyy"),{ sameSite: "Lax", secure: true })
+        Cookies.set("enddate", format(dateRange.to, "dd/MM/yyyy"),{ sameSite: "Lax", secure: true })
       fetchData();
     }
   }, [isFiltersInitialized, token, dateRange, age, gender]);
@@ -184,10 +184,10 @@ const prepareLineChartData = (inputData: LineChartData, feature: string) => {
       setAge("all");
       setGender("all");
       setSelectedFeature(null)
-    Cookies.set("age", "all", { sameSite: "Lax" })
-    Cookies.set("gender", "all", { sameSite: "Lax" })
-    Cookies.set("startdate", newStartDate, { sameSite: "Lax" })
-    Cookies.set("enddate", newEndDate, { sameSite: "Lax" })
+    Cookies.set("age", "all", { sameSite: "Lax", secure: true })
+    Cookies.set("gender", "all", { sameSite: "Lax", secure: true })
+    Cookies.set("startdate", newStartDate, { sameSite: "Lax", secure: true })
+    Cookies.set("enddate", newEndDate, { sameSite: "Lax", secure: true })
   }
   
   return (
