@@ -30,7 +30,6 @@ export default function Login() {
         setToken(data.token);
 
         // Retain query parameters from the current location and navigate
-        debugger;
         const redirectTo = location.state?.from || `/dashboard${location.search}`;
         navigate(redirectTo);
       } else {

@@ -184,10 +184,10 @@ const prepareLineChartData = (inputData: LineChartData, feature: string) => {
       setAge("all");
       setGender("all");
       setSelectedFeature(null)
-    Cookies.set("age", "all")
-    Cookies.set("gender", "all")
-    Cookies.set("startdate", newStartDate)
-    Cookies.set("enddate", newEndDate)
+    Cookies.set("age", "all", { sameSite: "None" })
+    Cookies.set("gender", "all", { sameSite: "None" })
+    Cookies.set("startdate", newStartDate, { sameSite: "None" })
+    Cookies.set("enddate", newEndDate, { sameSite: "None" })
   }
   
   return (
